@@ -21,7 +21,9 @@ public class HPGauge : MonoBehaviour
 
 	float _maxHP = 100f;
 
-	// You can initialize this script on Inspector.
+	// Why use Reset() instead of Start()?
+	// To avoid NullReferenceException error in external classes using this Slider.
+	// There is a delay risk in the case of Awake(), OnEnable() and Start().
 	void Reset()
 	{
 		if (_slider == null)

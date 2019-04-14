@@ -9,11 +9,12 @@ using Yumineko.Damage;
 public class EnemyAttack : MonoBehaviour
 {
 	[SerializeField] float _timeBetweenAttacks = 0.8f;
-	[SerializeField] int _attackDamage = 10;
 	[SerializeField] EnemyStateManager _enemyStateManager;
-	[SerializeField] LifeObject _lifeObject;
+
 	[Inject] Player _player;
-	// PlayerHealth playerHealth;
+
+	HealthManager _playerHealth;
+
 	//EnemyHealth enemyHealth;
 	public ReactiveProperty<bool> IsPlayerInAttackableRange { get; private set; } = new ReactiveProperty<bool>(false);
 	float _timer;
@@ -21,7 +22,7 @@ public class EnemyAttack : MonoBehaviour
 
 	void Awake()
 	{
-		// playerHealth = player.GetComponent <PlayerHealth> ();
+		_playerHealth = _player.GetComponentInChildren<HealthManager>();
 		//enemyHealth = GetComponent<EnemyHealth>();
 	}
 
@@ -64,9 +65,9 @@ public class EnemyAttack : MonoBehaviour
 	void Attack()
 	{
 		_timer = 0f;
-		
+
 		_enemyStateManager.SetState(EnemyState.Attack01);
-		_lifeObject.ApplyDamage(_attackDamage);
+		_playerHealth.TakeDamage(Constants.ORC_DEFAULT_ATK);
 
 		// if(playerHealth.currentHealth > 0)
 		// {

@@ -32,6 +32,13 @@ public class HealthManager : MonoBehaviour
 	Health _health = new Health();
 
 
+	void Reset()
+	{
+		if (_hpGauge == null)
+			_hpGauge = GetComponentInChildren<HPGauge>();
+	}
+
+
 	void OnEnable()
 	{
 		_health = new Health(_maxHP);
